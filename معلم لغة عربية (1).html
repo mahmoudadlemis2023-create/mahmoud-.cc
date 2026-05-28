@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>محمود عادل يوسف – معلم لغة عربية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --card: #16161f;
+    --card2: #1c1c28;
+    --gold: #c9a84c;
+    --gold2: #e8c97a;
+    --gold-dim: rgba(201,168,76,0.12);
+    --teal: #2dd4bf;
+    --teal-dim: rgba(45,212,191,0.1);
+    --text: #f0ede8;
+    --text2: #a09a8e;
+    --text3: #6a6460;
+    --border: rgba(201,168,76,0.18);
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 10% 0%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 100%, rgba(45,212,191,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Top bar */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .topbar-logo {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .topbar-logo span {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.5; transform:scale(1.4); }
+  }
+
+  /* Translate button */
+  .translate-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1.5px solid var(--gold);
+    background: var(--gold-dim);
+    color: var(--gold2);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+  }
+
+  .translate-btn:hover {
+    background: var(--gold);
+    color: #0a0a0f;
+    transform: scale(1.04);
+    box-shadow: 0 0 20px rgba(201,168,76,0.4);
+  }
+
+  .translate-btn svg {
+    width: 17px; height: 17px;
+    transition: transform 0.3s;
+  }
+
+  .translate-btn:hover svg { transform: rotate(20deg); }
+
+  /* Main layout */
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Hero section */
+  .hero {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 36px;
+    align-items: center;
+    margin-bottom: 48px;
+    padding: 40px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-avatar {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    object-fit: cover;
+    box-shadow: 0 0 30px rgba(201,168,76,0.3);
+  }
+
+  .avatar-placeholder {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    background: linear-gradient(135deg, var(--card2), var(--bg2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0 0 30px rgba(201,168,76,0.3);
+  }
+
+  .hero-name {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 2.1rem;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .hero-title {
+    font-size: 1rem;
+    color: var(--gold2);
+    font-weight: 600;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-title::before {
+    content: '';
+    width: 30px; height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+
+  .hero-desc {
+    font-size: 0.9rem;
+    color: var(--text2);
+    line-height: 1.8;
+    max-width: 560px;
+  }
+
+  /* Contact chips */
+  .contacts-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--text2);
+    transition: all 0.25s;
+    text-decoration: none;
+  }
+
+  .chip:hover {
+    border-color: var(--gold);
+    color: var(--gold2);
+    background: var(--gold-dim);
+  }
+
+  .chip-icon { font-size: 0.95rem; }
+
+  /* Section label */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Grid */
+  .grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: border-color 0.3s, transform 0.3s;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .card:hover {
+    border-color: rgba(201,168,76,0.4);
+    transform: translateY(-3px);
+  }
+
+  /* Timeline cards */
+  .timeline-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 24px 24px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .timeline-card::before {
+    content: '';
+    position: absolute;
+    right: -1px; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .timeline-card:hover { border-color: rgba(201,168,76,0.4); transform: translateX(-4px); }
+  .timeline-card:hover::before { opacity: 1; }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+
+  .job-title {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  .job-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--gold-dim);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 50px;
+    padding: 3px 12px;
+    white-space: nowrap;
+  }
+
+  .job-sub {
+    font-size: 0.83rem;
+    color: var(--teal);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .job-bullets { list-style: none; }
+
+  .job-bullets li {
+    font-size: 0.85rem;
+    color: var(--text2);
+    line-height: 1.75;
+    padding-right: 16px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+
+  .job-bullets li::before {
+    content: '◆';
+    position: absolute;
+    right: 0;
+    color: var(--gold);
+    font-size: 0.45rem;
+    top: 7px;
+  }
+
+  /* Current badge */
+  .current-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--teal);
+    background: var(--teal-dim);
+    border: 1px solid rgba(45,212,191,0.25);
+    border-radius: 50px;
+    padding: 3px 10px;
+    margin-bottom: 8px;
+  }
+
+  .current-badge span {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: pulse 1.5s infinite;
+  }
+
+  /* Skills */
+  .skill-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: var(--text2);
+    transition: all 0.25s;
+  }
+
+  .skill-pill:hover {
+    border-color: var(--gold);
+    color: var(--text);
+    background: var(--gold-dim);
+  }
+
+  .skill-icon { font-size: 1.1rem; }
+
+  /* Stat cards */
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .stat-card:hover {
+    border-color: var(--gold);
+    background: var(--gold-dim);
+    transform: translateY(-4px);
+  }
+
+  .stat-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--gold2);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--text3);
+    font-weight: 600;
+  }
+
+  /* Education */
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: all 0.3s;
+  }
+
+  .edu-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+
+  .edu-icon {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .edu-title { font-weight: 800; font-size: 0.95rem; margin-bottom: 4px; }
+  .edu-sub { font-size: 0.82rem; color: var(--text2); }
+  .edu-year { font-size: 0.75rem; color: var(--gold); font-weight: 700; margin-top: 6px; }
+
+  /* Hobbies */
+  .hobby-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+    background: var(--card2);
+    font-size: 0.85rem;
+    color: var(--text2);
+    margin: 4px;
+    transition: all 0.25s;
+  }
+
+  .hobby-tag:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+    background: var(--teal-dim);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.1s; }
+  .card:nth-child(3) { animation-delay: 0.15s; }
+  .timeline-card:nth-child(1) { animation-delay: 0.1s; }
+  .timeline-card:nth-child(2) { animation-delay: 0.2s; }
+  .timeline-card:nth-child(3) { animation-delay: 0.3s; }
+  .timeline-card:nth-child(4) { animation-delay: 0.4s; }
+
+  /* Lang toggle */
+  .lang-ar { display: block; }
+  .lang-en { display: none; }
+  body.en .lang-ar { display: none; }
+  body.en .lang-en { display: block; }
+  body.en { direction: ltr; }
+  body.en .topbar { direction: ltr; }
+  body.en .hero-title::before { content: none; }
+  body.en .job-bullets li { padding-right: 0; padding-left: 16px; }
+  body.en .job-bullets li::before { right: auto; left: 0; }
+  body.en .timeline-card::before { right: auto; left: -1px; }
+  body.en .timeline-card:hover { transform: translateX(4px); }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .grid2, .grid3 { grid-template-columns: 1fr; }
+    .hero { grid-template-columns: 1fr; text-align: center; }
+    .hero-title { justify-content: center; }
+    .contacts-row { justify-content: center; }
+    .topbar { padding: 12px 16px; }
+    .wrapper { padding: 24px 14px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <span></span>
+    <span class="lang-ar">السيرة الذاتية</span>
+    <span class="lang-en">CV Dashboard</span>
+  </div>
+  <button class="translate-btn" onclick="toggleLang()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    <span class="lang-ar">Translate to English</span>
+    <span class="lang-en">ترجمة إلى العربية</span>
+  </button>
+</div>
+
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="avatar-placeholder">👨‍🏫</div>
+    <div>
+      <div class="hero-name lang-ar">محمود عادل يوسف</div>
+      <div class="hero-name lang-en">Mahmoud Adel Youssef</div>
+      <div class="hero-title lang-ar">معلم لغة عربية</div>
+      <div class="hero-title lang-en">Arabic Language Teacher</div>
+      <div class="hero-desc lang-ar">
+        معلم لغة عربية معتمد من وزارة التربية والتعليم الإماراتية، يمتلك خبرة واسعة في تدريس اللغة العربية للناطقين وغير الناطقين بها. متخصص في الأساليب التفاعلية التي تعزز فهم القواعد والاستخدام العملي للغة.
+      </div>
+      <div class="hero-desc lang-en">
+        A certified Arabic language teacher by the UAE Ministry of Education, with extensive experience teaching Arabic to native and non-native speakers. Specializes in interactive methods that enhance grammar understanding and practical language use, ensuring an engaging and effective learning experience.
+      </div>
+      <div class="contacts-row">
+        <a class="chip" href="tel:+971562392212"><span class="chip-icon">📞</span>+971 56 239 2212</a>
+        <a class="chip" href="mailto:mahmoud.aadel600@gmail.com"><span class="chip-icon">✉️</span>mahmoud.aadel600@gmail.com</a>
+        <a class="chip" href="https://www.linkedin.com/in/mahmoud-aadel-09a49b22b" target="_blank"><span class="chip-icon">🔗</span>LinkedIn</a>
+        <a class="chip" href="#"><span class="chip-icon">📍</span><span class="lang-ar">الشارقة، الإمارات</span><span class="lang-en">Sharjah, UAE</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="grid3" style="margin-bottom:36px;">
+    <div class="stat-card">
+      <div class="stat-num">6+</div>
+      <div class="stat-label lang-ar">سنوات خبرة</div>
+      <div class="stat-label lang-en">Years Experience</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">4</div>
+      <div class="stat-label lang-ar">مدارس عمل بها</div>
+      <div class="stat-label lang-en">Schools Worked At</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">🇦🇪</div>
+      <div class="stat-label lang-ar">معتمد من وزارة التربية</div>
+      <div class="stat-label lang-en">UAE MOE Licensed</div>
+    </div>
+  </div>
+
+  <!-- WORK EXPERIENCE -->
+  <div class="section-label lang-ar">الخبرة المهنية</div>
+  <div class="section-label lang-en">Work Experience</div>
+
+  <div class="timeline-card">
+    <div class="current-badge"><span></span><span class="lang-ar">الوظيفة الحالية</span><span class="lang-en">Current Position</span></div>
+    <div class="job-header">
+      <div class="job-title lang-ar">مدرسة GEMS Millennium – الشارقة</div>
+      <div class="job-title lang-en">GEMS Millennium School – Sharjah</div>
+      <div class="job-badge">2025 – 2026</div>
+    </div>
+    <div class="job-sub lang-ar">معلم لغة عربية</div>
+    <div class="job-sub lang-en">Arabic Language Teacher</div>
+    <ul class="job-bullets lang-ar">
+      <li>توظيف التكنولوجيا التعليمية الحديثة في تدريس اللغة العربية من خلال الدروس الرقمية التفاعلية.</li>
+      <li>تصميم وتطبيق تقييمات متنوعة (قراءة، تحدث، استماع) وفق معايير واضحة.</li>
+      <li>معالجة الفروق الفردية وتطوير مهارات التواصل عبر استراتيجيات التعلم النشط.</li>
+      <li>ربط محتوى اللغة بالسياقات الحياتية والثقافة المحلية لتعزيز التفاعل.</li>
+    </ul>
+    <ul class="job-bullets lang-en">
+      <li>Rating modern educational technology in teaching Arabic through interactive digital lessons.</li>
+      <li>Designing and implementing diverse assessments (reading, speaking, listening) using clear criteria and performance-based rubrics.</li>
+      <li>Addressing individual differences and developing students' communication skills through active learning strategies.</li>
+      <li>Connecting language content to real-life contexts and local culture to enhance student engagement and learning outcomes.</li>
+    </ul>
+  </div>
+
+  <div class="timeline-card">
+    <div class="job-header">
+      <div class="job-title lang-ar">المدرسة الهندية الحديثة – دبا الفجيرة، الإمارات</div>
+      <div class="job-title lang-en">Modern Indian School – Dibba Al-Fujairah, UAE</div>
+      <div class="job-badge">2023 – 2025</div>
+    </div>
+    <div class="job-sub lang-ar">معلم لغة عربية • سنتان</div>
+    <div class="job-sub lang-en">Arabic Language Teacher • 2 Years</div>
+    <ul class="job-bullets lang-ar">
+      <li>تدريس اللغة العربية لطلاب من خلفيات لغوية متنوعة.</li>
+      <li>تصميم خطط دروس تفاعلية وجذابة مناسبة لمستويات الطلاب.</li>
+      <li>تطوير مهارات اللغة في القراءة والكتابة والتحدث عبر مناهج حديثة.</li>
+      <li>التعاون مع الزملاء لتطوير المناهج وتعزيز الفهم الثقافي.</li>
+    </ul>
+    <ul class="job-bullets lang-en">
+      <li>Teaching Arabic to students of diverse linguistic backgrounds.</li>
+      <li>Designing interactive and engaging lesson plans tailored to students' levels.</li>
+      <li>Developing language skills in reading, writing, and speaking through modern methodologies.</li>
+      <li>Collaborating with staff to enhance the Arabic curriculum and promote cultural understanding.</li>
+    </ul>
+  </div>
+
+  <div class="timeline-card">
+    <div class="job-header">
+      <div class="job-title lang-ar">مدرسة اللواء إبراهيم فياض – كوم حمادة، مصر</div>
+      <div class="job-title lang-en">El-Liwaa Ibrahim Fayyad School – Kom Hamada, Egypt</div>
+      <div class="job-badge">2020 – 2022</div>
+    </div>
+    <div class="job-sub lang-ar">معلم لغة عربية • سنتان</div>
+    <div class="job-sub lang-en">Arabic Language Teacher • 2 Years</div>
+    <ul class="job-bullets lang-ar">
+      <li>تدريس اللغة العربية لطلاب من مختلف الأعمار والمستويات.</li>
+      <li>تنظيم دروس مبتكرة وفعّالة لتحسين مهارات الفهم والكتابة.</li>
+      <li>تطوير أساليب تدريس تشجع التفكير النقدي والمشاركة الفعّالة.</li>
+      <li>تحفيز الطلاب عبر أنشطة تعليمية تدعم تطور مهاراتهم اللغوية.</li>
+    </ul>
+    <ul class="job-bullets lang-en">
+      <li>Teaching Arabic to students of various ages and levels.</li>
+      <li>Organizing innovative and effective lessons to help students improve their comprehension and writing skills.</li>
+      <li>Developing teaching methods that encourage critical thinking and active participation.</li>
+      <li>Motivating students through educational activities that support their language development.</li>
+    </ul>
+  </div>
+
+  <div class="timeline-card">
+    <div class="job-header">
+      <div class="job-title lang-ar">مدرسة السيدة صفية – كوم حمادة، مصر</div>
+      <div class="job-title lang-en">Sayyida Safiya School – Kom Hamada, Egypt</div>
+      <div class="job-badge">2019 – 2020</div>
+    </div>
+    <div class="job-sub lang-ar">معلم لغة عربية • سنة واحدة</div>
+    <div class="job-sub lang-en">Arabic Language Teacher • 1 Year</div>
+    <ul class="job-bullets lang-ar">
+      <li>تدريس اللغة العربية مع التركيز على تطوير مهارات الاستماع والفهم.</li>
+      <li>إعداد دروس تفاعلية تلبي احتياجات الطلاب وتساعدهم على إتقان مهارات اللغة.</li>
+      <li>تقديم الدعم الفردي لتعزيز قدرات الكتابة والتحدث.</li>
+      <li>استخدام تقنيات متنوعة لجعل تعلم اللغة العربية أكثر جاذبية وفاعلية.</li>
+    </ul>
+    <ul class="job-bullets lang-en">
+      <li>Teaching Arabic with a focus on developing listening and comprehension skills.</li>
+      <li>Preparing interactive lessons that cater to students' needs and help them master language skills.</li>
+      <li>Providing individual support to enhance students' writing and speaking abilities.</li>
+      <li>Using diverse techniques to make learning Arabic more engaging and effective.</li>
+    </ul>
+  </div>
+
+  <!-- EDUCATION & SKILLS -->
+  <div class="grid2" style="margin-top:36px;">
+    <div>
+      <div class="section-label lang-ar">التعليم والمؤهلات</div>
+      <div class="section-label lang-en">Education & Qualifications</div>
+
+      <div class="edu-card" style="margin-bottom:16px;">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-title lang-ar">بكالوريوس في الآداب والتربية</div>
+          <div class="edu-title lang-en">Bachelor's in Arts & Education</div>
+          <div class="edu-sub lang-ar">جامعة السادات، مصر</div>
+          <div class="edu-sub lang-en">Sadat University, Egypt</div>
+          <div class="edu-year lang-ar">2019 • تقدير جيد جداً</div>
+          <div class="edu-year lang-en">2019 • Very Good Rating</div>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-icon">📜</div>
+        <div>
+          <div class="edu-title lang-ar">رخصة مزاولة مهنة التدريس</div>
+          <div class="edu-title lang-en">Teacher's License</div>
+          <div class="edu-sub lang-ar">وزارة التربية والتعليم الإماراتية</div>
+          <div class="edu-sub lang-en">UAE Ministry of Education</div>
+          <div class="edu-year lang-ar">معتمدة ✓</div>
+          <div class="edu-year lang-en">Certified ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label lang-ar">المهارات</div>
+      <div class="section-label lang-en">Skills</div>
+      <div class="skill-pill"><span class="skill-icon">💻</span><span class="lang-ar">إتقان تكنولوجيا التعليم</span><span class="lang-en">Mastery of Educational Technology</span></div>
+      <div class="skill-pill"><span class="skill-icon">✨</span><span class="lang-ar">الإبداع في تصميم الدروس</span><span class="lang-en">Creativity in Lesson Design</span></div>
+      <div class="skill-pill"><span class="skill-icon">💬</span><span class="lang-ar">التواصل الفعّال</span><span class="lang-en">Effective Communication</span></div>
+      <div class="skill-pill"><span class="skill-icon">📖</span><span class="lang-ar">إتقان قواعد اللغة</span><span class="lang-en">Proficiency in Grammar</span></div>
+      <div class="skill-pill"><span class="skill-icon">🎯</span><span class="lang-ar">القدرة على تحفيز الطلاب</span><span class="lang-en">Ability to Motivate Students</span></div>
+      <div class="skill-pill"><span class="skill-icon">📊</span><span class="lang-ar">التقييم والقياس</span><span class="lang-en">Assessment and Evaluation</span></div>
+      <div class="skill-pill"><span class="skill-icon">🧠</span><span class="lang-ar">التفكير النقدي</span><span class="lang-en">Critical Thinking</span></div>
+      <div class="skill-pill"><span class="skill-icon">🤝</span><span class="lang-ar">المرونة والصبر</span><span class="lang-en">Flexibility and Patience</span></div>
+    </div>
+  </div>
+
+  <!-- HOBBIES -->
+  <div style="margin-top:36px;">
+    <div class="section-label lang-ar">الاهتمامات</div>
+    <div class="section-label lang-en">Hobbies & Interests</div>
+    <div class="card" style="padding:20px 24px;">
+      <div>
+        <span class="hobby-tag">📚 <span class="lang-ar">القراءة</span><span class="lang-en">Reading</span></span>
+        <span class="hobby-tag">🏊 <span class="lang-ar">السباحة</span><span class="lang-en">Swimming</span></span>
+        <span class="hobby-tag">🧘 <span class="lang-ar">التأمل</span><span class="lang-en">Meditation</span></span>
+        <span class="hobby-tag">✈️ <span class="lang-ar">السفر</span><span class="lang-en">Travelling</span></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleLang() {
+    document.body.classList.toggle('en');
+    const isEn = document.body.classList.contains('en');
+    document.documentElement.setAttribute('lang', isEn ? 'en' : 'ar');
+    document.documentElement.setAttribute('dir', isEn ? 'ltr' : 'rtl');
+  }
+</script>
+</body>
+</html>
